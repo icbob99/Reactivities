@@ -1,6 +1,6 @@
 
 import { Grid } from "semantic-ui-react";
-import { Activity } from "../../../app/models/activity";
+import { Activity } from "../../../app/models/Activity";
 import ActivityList from './ActivityList';
 
 interface Props {
