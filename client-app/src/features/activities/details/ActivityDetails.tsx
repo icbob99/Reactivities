@@ -1,4 +1,4 @@
-import { Button, Card, CardContent, CardDescription, CardHeader, CardMeta, Icon, Image } from "semantic-ui-react";
+import { Button, Card, CardContent, CardDescription, CardHeader, CardMeta, Image } from "semantic-ui-react";
 import { Activity } from "../../../app/models/Activity";
 
 
@@ -26,7 +26,7 @@ export default function ActivityDetails({ activity: activity,
             </CardContent>
             <CardContent extra>
                 <Button.Group widths={2}>
-                    <Button basic color="blue" content='Edit' onClick={()=>openForm(activity.id)}/>
+                    <Button basic color="blue" content='Edit' onClick={() => openForm(activity.id)} />
                     <Button basic color="grey" content='Cancel' onClick={cancelSelectActivity} />
                 </Button.Group>
             </CardContent>
