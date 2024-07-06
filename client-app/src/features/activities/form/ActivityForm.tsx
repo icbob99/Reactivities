@@ -5,9 +5,10 @@ import { Activity } from "../../../app/models/Activity";
 interface Props {
     activity: Activity | undefined;
     closeForm: () => void;
+    createOrEditActivity: (activity: Activity) => void;
 }
 
-export default function ActivityForm({ activity: selectedActivity, closeForm }: Props) {
+export default function ActivityForm({ activity: selectedActivity, closeForm, createOrEditActivity}: Props) {
 
     const initialState = selectedActivity ?? {
         id: '',
@@ -15,13 +16,15 @@ export default function ActivityForm({ activity: selectedActivity, closeForm }: 
         category: '',
         date: '',
         city: '',
+        description:'',
         venue: ''
     }
 
     const [activity, setActivity] = useState(initialState);
 
     function handlSubmit() {
-        console.log(activity);
+        // console.log(activity);
+        createOrEditActivity(activity);
     }
 
     function handleInputChange(event: ChangeEvent<HTMLInputElement|HTMLTextAreaElement>) {
@@ -33,7 +36,7 @@ export default function ActivityForm({ activity: selectedActivity, closeForm }: 
         <Segment clearing>
             <Form onSubmit={handlSubmit} autoComplete='off'>
                 <Form.Input placeholder='Title' value={activity.title} name='title' onChange={handleInputChange} />
-                <Form.TextArea placeholder='Description' value={activity.title} name='description' onChange={handleInputChange} />
+                <Form.TextArea placeholder='Description' value={activity.description} name='description' onChange={handleInputChange} />
                 <Form.Input placeholder='Category' value={activity.category} name='category' onChange={handleInputChange} />
                 <Form.Input placeholder='Date' value={activity.date} name='date' onChange={handleInputChange} />
                 <Form.Input placeholder='City' value={activity.city} name='city' onChange={handleInputChange} />
