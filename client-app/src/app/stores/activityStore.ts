@@ -8,7 +8,7 @@ export default class ActivityStore {
     selectedActivity: Activity | undefined = undefined;
     editMode = false;
     loading = false;
-    loadingInitial = true;
+    loadingInitial = false;
 
     constructor() {
         makeAutoObservable(this)
@@ -102,8 +102,8 @@ export default class ActivityStore {
     }
 
     updateActivity = async (activity: Activity) => {
-        this.loading = true;
-
+        this.loading = true;       
+        this.editMode = true;
         try {
             await agent.Activities.update(activity);
 
@@ -117,6 +117,7 @@ export default class ActivityStore {
             console.log(error);
 
             runInAction(() => {
+                
                 this.loading = false;
             })
         }
