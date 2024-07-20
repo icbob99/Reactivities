@@ -4,10 +4,10 @@ import LoadingComponents from "../../../app/layout/LoaadingComponent";
 import { observer } from "mobx-react-lite";
 import { Link, useParams } from "react-router-dom";
 import { useEffect } from "react";
-import ActivityDetailedHeader from "./ActivityDetailedHeader";
 import ActivityDetailedInfo from "./ActivityDetailedInfo";
 import ActivityDetailedChat from "./ActivityDetailedChat";
 import ActivityDetailedSideBar from "./ActivityDetailedSidebar";
+import ActivityDetailedHeader from "./ActivityDetailedHeader";
 
 
 
@@ -28,8 +28,8 @@ export default observer(function ActivityDetails() {
     return (
         <Grid>
             <Grid.Column width={10}>
-                <ActivityDetailedHeader></ActivityDetailedHeader>
-                <ActivityDetailedInfo></ActivityDetailedInfo>
+                <ActivityDetailedHeader activity={activity}></ActivityDetailedHeader>
+                <ActivityDetailedInfo activity={activity}></ActivityDetailedInfo>
                 <ActivityDetailedChat></ActivityDetailedChat>
             </Grid.Column>
             <Grid.Column width={6}>
