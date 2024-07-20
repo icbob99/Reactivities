@@ -1,5 +1,5 @@
 
-import { Header, Item, Segment } from "semantic-ui-react";
+import { Header} from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
 import { observer } from "mobx-react-lite";
 import ActivityListItem from "./ActivityListItems";
@@ -11,21 +11,19 @@ export default observer(function ActivityList() {
 
     return (
         <>
-            {groupedActivitird.map(([group, activities]) => (
-                <Fragment key={group}>
-                    <Header sub color="teal">
-                        {group}
-                    </Header>
-                    <Segment>
-                        <Item.Group divided>
-                            {activities.map(activity => (
+            {
+                groupedActivitird.map(([group, activities]) => (
+                    <Fragment key={group}>
+                        <Header sub color="teal">
+                            {group}
+                        </Header>
+                        {
+                            activities.map(activity => (
                                 <ActivityListItem key={activity.id} activity={activity} />
-                            ))}
-                        </Item.Group>
-                    </Segment>
-
-                </Fragment>
-            ))
+                            ))
+                        }
+                    </Fragment>
+                ))
             }
         </>
     )
