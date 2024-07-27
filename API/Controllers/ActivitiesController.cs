@@ -37,17 +37,17 @@ namespace API.Controllers
         {
             activity.Id = Id;
 
-            await Mediator.Send(new Edit.Command { Activity = activity });
+            var result = await Mediator.Send(new Edit.Command { Activity = activity });
 
-            return Ok();
+             return HandleResult(result);
         }
 
         [HttpDelete("{Id}")]
         public async Task<IActionResult> DeleteActivity(Guid Id)
         {
-            await Mediator.Send(new Delete.Command { Id = Id });
+           var result = await Mediator.Send(new Delete.Command { Id = Id });
 
-            return Ok();
+            return HandleResult(result);
         }
     }
 }
