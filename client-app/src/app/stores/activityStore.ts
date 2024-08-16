@@ -1,5 +1,5 @@
 import { makeAutoObservable, runInAction } from "mobx";
-import { Activity } from "../models/Activity";
+import { Activity } from "../models/activity";
 import agent from "../api/agent";
 import { v4 as uuid } from 'uuid';
 
@@ -17,6 +17,18 @@ export default class ActivityStore {
     get activitiesByDate() {
         return Array.from(this.activityRegistry.values())
             .sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
+    }
+
+    get groupedActivitird() {
+        return Object.entries(
+            this.activitiesByDate.reduce(
+                (activities, activity) => {
+                    const date = activity.date;
+                    activities[date] = activities[date] ? [...activities[date], activity] : [activity];
+                    return activities;
+                }, {} as { [key: string]: Activity[] }
+            )
+        )
     }
 
     loadActivities = async () => {
@@ -46,11 +58,10 @@ export default class ActivityStore {
 
     loadActivity = async (id: string) => {
         let activity = this.getActivity(id);
-        if (activity)
-            {
-                this.selectedActivity = activity;
-                return activity;
-            }
+        if (activity) {
+            this.selectedActivity = activity;
+            return activity;
+        }
         else {
             this.setLoadingInitial(true);
 
@@ -62,7 +73,7 @@ export default class ActivityStore {
                     this.selectedActivity = activity;
                 })
 
-                
+
                 this.setLoadingInitial(false);
                 return activity;
             } catch (error) {
@@ -102,7 +113,7 @@ export default class ActivityStore {
     }
 
     updateActivity = async (activity: Activity) => {
-        this.loading = true;       
+        this.loading = true;
         this.editMode = true;
         try {
             await agent.Activities.update(activity);
@@ -117,7 +128,7 @@ export default class ActivityStore {
             console.log(error);
 
             runInAction(() => {
-                
+
                 this.loading = false;
             })
         }
