@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
-import { Button, FormField, Label, Segment } from "semantic-ui-react";
+import { Button,  Segment } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
 import { observer } from "mobx-react-lite";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link,  useParams } from "react-router-dom";
 import { Activity } from "../../../app/models/activity";
 import LoadingComponents from "../../../app/layout/LoaadingComponent";
 import { Formik, Form } from "formik";
 import * as Yup from 'yup';
 import MyTextInput from "../../../app/common/form/MyTextInput";
+import MyTextArea from "../../../app/common/form/MyTextAreaInput";
 
 
 export default observer(function ActivityForm() {
@@ -65,7 +66,7 @@ export default observer(function ActivityForm() {
                 {({ handleSubmit }) => (
                     <Form className="ui form" onSubmit={handleSubmit} autoComplete='off'>
                         <MyTextInput name='title' placeholder="Title" />
-                        <MyTextInput placeholder='Description' name='description' />
+                        <MyTextArea rows={3} placeholder='Description' name='description' />
                         <MyTextInput placeholder='Category' name='category' />
                         <MyTextInput type='date' placeholder='Date' name='date' />
                         <MyTextInput placeholder='City' name='city' />
