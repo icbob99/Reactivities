@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { Button,  Segment } from "semantic-ui-react";
+import { Button, Segment } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
 import { observer } from "mobx-react-lite";
-import { Link,  useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Activity } from "../../../app/models/activity";
 import LoadingComponents from "../../../app/layout/LoaadingComponent";
 import { Formik, Form } from "formik";
@@ -11,20 +11,21 @@ import MyTextInput from "../../../app/common/form/MyTextInput";
 import MyTextArea from "../../../app/common/form/MyTextAreaInput";
 import MySelectInput from "../../../app/common/form/MySelectInput";
 import { categoryOptions } from "../../../app/common/options/category";
+import MyDateInput from "../../../app/common/form/MyDateInput";
 
 
 export default observer(function ActivityForm() {
 
     const { activityStore } = useStore();
 
-    const {  loading, loadActivity, loadingInitial } = activityStore;
+    const { loading, loadActivity, loadingInitial } = activityStore;
     const { id } = useParams();
 
     const [activity, setActivity] = useState<Activity>({
         id: '',
         title: '',
         category: '',
-        date: '',
+        date: null,
         city: '',
         description: '',
         venue: ''
@@ -70,7 +71,14 @@ export default observer(function ActivityForm() {
                         <MyTextInput name='title' placeholder="Title" />
                         <MyTextArea rows={3} placeholder='Description' name='description' />
                         <MySelectInput options={categoryOptions} placeholder='Category' name='category' />
-                        <MyTextInput type='date' placeholder='Date' name='date' />
+                        <MyDateInput
+                            name='date'
+                            label='Date'
+                            placeholderText="Date"
+                            showTimeSelect
+                            timeCaption="time"
+                            dateFormat='MMMM d, yyyy h:mm aa'                            
+                        />
                         <MyTextInput placeholder='City' name='city' />
                         <MyTextInput placeholder='Venue' name='venue' />
                         <Button loading={loading} floated='right' positive type='submit' content='Submit' />
