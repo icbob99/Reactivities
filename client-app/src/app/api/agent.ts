@@ -1,5 +1,4 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
-
 import { toast } from 'react-toastify';
 import { router } from '../router/Routes';
 import { store } from '../stores/store';
@@ -60,6 +59,13 @@ axios.interceptors.response.use(async response => {
 })
 
 const responseBody = <T>(response: AxiosResponse<T>) => response.data;
+
+axios.interceptors.request.use(config => {
+    const token = store.commonStore.token;
+    if (token && config.headers) config.headers.Authorization = `Bearer ${token}`;
+
+    return config;
+})
 
 const request = {
     get: <T>(url: string) => axios.get<T>(url).then(responseBody),
