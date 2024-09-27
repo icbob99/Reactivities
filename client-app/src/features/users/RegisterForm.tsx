@@ -1,9 +1,10 @@
 import { ErrorMessage, Form, Formik } from "formik";
 import MyTextInput from "../../app/common/form/MyTextInput";
-import { Button, Header, Label } from "semantic-ui-react";
+import { Button, Header } from "semantic-ui-react";
 import { useStore } from "../../app/stores/store";
 import { observer } from "mobx-react-lite";
 import * as Yup from 'yup';
+import ValidationErrors from "../errors/ValidationError";
 
 export default observer(function RegisterForm() {
     const { userStore } = useStore();
@@ -11,8 +12,8 @@ export default observer(function RegisterForm() {
         <Formik
             initialValues={{ displayName: '', username: '', email: '', password: '', error: null }}
             onSubmit={(values, { setErrors }) =>
-                userStore.register(values).catch(() =>
-                    setErrors({ error: 'Invalid email or password' }))}
+                userStore.register(values).catch((error) =>
+                    setErrors({ error }))}
             validationSchema={Yup.object({
                 displayName: Yup.string().required(),
                 username: Yup.string().required(),
@@ -21,17 +22,14 @@ export default observer(function RegisterForm() {
             })}
         >
             {({ handleSubmit, isSubmitting, errors, isValid, dirty }) => (
-                <Form className="ui form" onSubmit={handleSubmit} autoCapitalize="off">
+                <Form className="ui form error" onSubmit={handleSubmit} autoCapitalize="off">
                     <Header as='h2' content='Sign Up to Reactivities' color="teal" textAlign="center"></Header>
                     <MyTextInput placeholder="Display Name" name="displayName" />
                     <MyTextInput placeholder="User Name" name="username" />
                     <MyTextInput placeholder="Email" name="email" />
                     <MyTextInput placeholder="Password" name="password" type='password' />
-                    <ErrorMessage name="error"
-                        render={() =>
-                            <Label style={{ marginBottom: 10 }} basic color="red" content={errors.error} />
-                        }>
-                    </ErrorMessage>
+                    <ErrorMessage name="error" render={() =>
+                        <ValidationErrors errors={errors.error as unknown as string[]} />} />
                     <Button
                         disabled={!isValid || !dirty || isSubmitting}
                         loading={isSubmitting} positive content='Register' type="submit" fluid />
