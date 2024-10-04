@@ -5,6 +5,7 @@
 dotnet tool install --global dotnet-ef
 ### add migration
 dotnet ef migrations add ActivityAttendee -p Persistence -s API
+dotnet ef migrations add ActivityCancelProperty -p Persistence -s API
 ### remove migration
 dotnet ef migrations remove -p Persistence -s API
 ### add project

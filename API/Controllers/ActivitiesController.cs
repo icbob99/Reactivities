@@ -51,5 +51,12 @@ namespace API.Controllers
 
             return HandleResult(result);
         }
+        [HttpPost("{Id}/attend")]
+        public async Task<IActionResult> Attend(Guid Id)
+        {
+            var result = await Mediator.Send(new UpdateAttendance.Command { Id = Id });
+
+            return HandleResult(result);
+        }
     }
 }
