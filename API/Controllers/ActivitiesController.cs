@@ -1,10 +1,11 @@
 using Application.Activities;
 using Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    
+
     public class ActivitiesController : BaseApiController
     {
 
@@ -34,6 +35,7 @@ namespace API.Controllers
             return HandleResult(result);
         }
 
+        [Authorize(Policy = "IsActivityHost")]
         [HttpPut("{Id}")]
         public async Task<IActionResult> EditActivity(Guid Id, Activity activity)
         {
