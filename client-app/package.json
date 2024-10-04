@@ -14,6 +14,7 @@
     "@types/react-calendar": "^4.1.0",
     "@types/yup": "^0.32.0",
     "axios": "^1.7.2",
+    "client-app": "file:",
     "date-fns": "^3.6.0",
     "formik": "^2.4.6",
     "mobx": "^6.13.0",
