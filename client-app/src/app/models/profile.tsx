@@ -1,5 +1,6 @@
+import { User } from "./user"
 
-export interface Profile {
+export interface IProfile {
     username: string
     displayName: string
     image?: string
@@ -8,4 +9,17 @@ export interface Profile {
     // followersCount: number
     // followingCount: number
     // photos: Photo[]
+}
+ 
+export class Profile implements IProfile {
+    constructor(user: User) {
+        this.username = user.username
+        this.displayName = user.displayName
+        this.image = user.image
+        
+    }
+    username: string
+    displayName: string
+    image?: string
+    bio?: string
 }
