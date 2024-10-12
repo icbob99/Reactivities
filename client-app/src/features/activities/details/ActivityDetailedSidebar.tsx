@@ -1,8 +1,12 @@
 import { Segment, List, Label, Item, Image } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
+import { Profile } from '../../../app/models/profile'
 
-export default observer(function ActivityDetailedSidebar () {
+interface Props {
+    attendees: Profile[]
+}
+export default observer(function ActivityDetailedSidebar({ attendees }: Props) {
     return (
         <>
             <Segment
@@ -13,45 +17,33 @@ export default observer(function ActivityDetailedSidebar () {
                 inverted
                 color='teal'
             >
-                3 People Going
+                {attendees.length} {attendees.length === 1 ? 'Person' : 'People'} going
             </Segment>
             <Segment attached>
                 <List relaxed divided>
-                    <Item style={{ position: 'relative' }}>
-                        <Label
-                            style={{ position: 'absolute' }}
-                            color='orange'
-                            ribbon='right'
-                        >
-                            Host
-                        </Label>
-                        <Image size='tiny' src={'/assets/user.png'} />
-                        <Item.Content verticalAlign='middle'>
-                            <Item.Header as='h3'>
-                                <Link to={`#`}>Bob</Link>
-                            </Item.Header>
-                            <Item.Extra style={{ color: 'orange' }}>Following</Item.Extra>
-                        </Item.Content>
-                    </Item>
+                    {attendees.map(attendee => (
+                        <Item key={attendee.username} style={{ position: 'relative' }}>
+                            {/* {attendee.following && ( */}
+                                <Label
+                                    style={{ position: 'absolute' }}
+                                    color='orange'
+                                    ribbon='right'
+                                >
+                                    Following
+                                </Label>
+                            {/* )} */}
+                            <Image size='tiny' src={attendee.image || '/assets/user.png'} />
+                            <Item.Content verticalAlign='middle'>
+                                <Item.Header as='h3'>
+                                    <Link to={`/profiles/${attendee.username}`}>{attendee.displayName}</Link>
+                                </Item.Header>
+                                {/* {attendee.following && ( */}
+                                    <Item.Extra style={{ color: 'orange' }}>Following</Item.Extra>
+                                {/* )} */}
+                            </Item.Content>
 
-                    <Item style={{ position: 'relative' }}>
-                        <Image size='tiny' src={'/assets/user.png'} />
-                        <Item.Content verticalAlign='middle'>
-                            <Item.Header as='h3'>
-                                <Link to={`#`}>Tom</Link>
-                            </Item.Header>
-                            <Item.Extra style={{ color: 'orange' }}>Following</Item.Extra>
-                        </Item.Content>
-                    </Item>
-
-                    <Item style={{ position: 'relative' }}>
-                        <Image size='tiny' src={'/assets/user.png'} />
-                        <Item.Content verticalAlign='middle'>
-                            <Item.Header as='h3'>
-                                <Link to={`#`}>Sally</Link>
-                            </Item.Header>
-                        </Item.Content>
-                    </Item>
+                        </Item>
+                    ))}
                 </List>
             </Segment>
         </>
