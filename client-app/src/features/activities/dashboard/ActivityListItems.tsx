@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { Button, Icon, Item, Segment, SegmentGroup } from "semantic-ui-react"
+import { Button, Icon, Item, Label, Segment, SegmentGroup } from "semantic-ui-react"
 import { Activity } from "../../../app/models/activity"
 import { format } from "date-fns"
 import ActivityListItemAttendee from "./ActivityListItemAttendee"
@@ -22,19 +22,29 @@ export default function ActivityListItem({ activity }: Props) {
                             <Item.Header as={Link} to={`/activities/${activity.id}`}>
                                 {activity.title}
                             </Item.Header>
-                            <Item.Description>Hosted by Bob</Item.Description>
+                            <Item.Description>Hosted by {activity.host?.displayName}</Item.Description>
+                            {activity.isHost && (
+                                <Item.Description>
+                                    <Label basic color='orange' content='You are hosting this activity' />
+                                </Item.Description>
+                            )}
+                            {activity.isGoing && !activity.isHost && (
+                                <Item.Description>
+                                    <Label basic color='green' content='You are going to this activity' />
+                                </Item.Description>
+                            )}
                         </Item.Content>
                     </Item>
                 </Item.Group>
             </Segment>
             <Segment>
                 <span>
-                    <Icon name="clock" /> {format( activity.date!, 'dd MM yyyy h:mm aa')}
+                    <Icon name="clock" /> {format(activity.date!, 'dd MM yyyy h:mm aa')}
                     <Icon name='marker' /> {activity.venue}
                 </span>
             </Segment>
             <Segment secondary>
-                <ActivityListItemAttendee attendees={activity.attendees!}/>
+                <ActivityListItemAttendee attendees={activity.attendees!} />
             </Segment>
             <Segment clearing>
                 <span>{activity.description}</span>
