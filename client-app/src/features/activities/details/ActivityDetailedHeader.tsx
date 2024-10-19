@@ -1,5 +1,4 @@
 import { observer } from 'mobx-react-lite';
-
 import { Button, Header, Item, Segment, Image } from 'semantic-ui-react'
 import { Activity } from '../../../app/models/activity';
 import { Link } from 'react-router-dom';
@@ -23,7 +22,7 @@ interface Props {
     activity: Activity
 }
 
-const ActivityDetailsHeaser = observer(function ActivityDetailedHeader({ activity }: Props) {
+const ActivityDetailsHeader = observer(function ActivityDetailedHeader({ activity }: Props) {
     const {activityStore :{updateAttendence, loading}} = useStore();
     return (
         <Segment.Group>
@@ -49,7 +48,7 @@ const ActivityDetailsHeaser = observer(function ActivityDetailedHeader({ activit
             </Segment>
             <Segment clearing attached='bottom'>
                 {activity.isHost ? (
-                    <Button as={Link} to={`/manage/${activity.id}`} color='orange' floated='right'>
+                <Button as={Link} to={`/manage/${activity.id}`} color='orange' floated='right'>
                         Manage Event
                     </Button>
                 ) : activity.isGoing ? (
@@ -62,5 +61,5 @@ const ActivityDetailsHeaser = observer(function ActivityDetailedHeader({ activit
     )
 });
 
-export default ActivityDetailsHeaser;
-ActivityDetailsHeaser.displayName = "ActivityDetailsHeaser";
+export default ActivityDetailsHeader;
+ActivityDetailsHeader.displayName = "ActivityDetailsHeader";

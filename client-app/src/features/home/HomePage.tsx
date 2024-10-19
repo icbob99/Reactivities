@@ -5,7 +5,7 @@ import { observer } from "mobx-react-lite";
 import LoginForm from "../users/LoginForm";
 import RegisterForm from "../users/RegisterForm";
 
-export default observer(function HomePage() {
+const HomePage = observer(function HomePage() {
     const { userStore, modalStore } = useStore();
     return (
         <Segment inverted textAlign="center" vertical className="masthead">
@@ -35,4 +35,7 @@ export default observer(function HomePage() {
             </Container>
         </Segment>
     )
-})
+});
+
+export default HomePage;
+HomePage.displayName = "HomePage";
