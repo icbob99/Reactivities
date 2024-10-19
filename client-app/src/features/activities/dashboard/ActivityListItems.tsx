@@ -4,7 +4,6 @@ import { Activity } from "../../../app/models/activity"
 import { format } from "date-fns"
 import ActivityListItemAttendee from "./ActivityListItemAttendee"
 
-
 interface Props {
     activity: Activity
 }
@@ -14,10 +13,16 @@ export default function ActivityListItem({ activity }: Props) {
 
     return (
         <SegmentGroup>
+            {activity.isCancelled &&
+                <Label
+                    attached="top"
+                    style={{ textAlign: 'center', width: '100%' }}
+                    color='red' content='Cancelled' />
+            }
             <Segment>
                 <Item.Group>
                     <Item>
-                        <Item.Image size="tiny" circular src='/assets/user.png'></Item.Image>
+                        <Item.Image style={{marginBottom:3}} size="tiny" circular src='/assets/user.png'></Item.Image>
                         <Item.Content>
                             <Item.Header as={Link} to={`/activities/${activity.id}`}>
                                 {activity.title}
