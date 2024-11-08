@@ -38,7 +38,7 @@ namespace API.Controllers
 
             if (result)
             {
-                return CreateUserPbject(user);
+                return CreateUserObject(user);
             }
 
             return Unauthorized();
@@ -71,7 +71,7 @@ namespace API.Controllers
             var result = await _userManager.CreateAsync(user, registerDto.Password);
             if (result.Succeeded)
             {
-                return CreateUserPbject(user);
+                return CreateUserObject(user);
             }
 
             return BadRequest("Problem register user");
@@ -83,9 +83,9 @@ namespace API.Controllers
         {
             var user = await _userManager.FindByEmailAsync(User.FindFirstValue(ClaimTypes.Email));
 
-            return CreateUserPbject(user);
+            return CreateUserObject(user);
         }
-        private UserDto CreateUserPbject(AppUser user)
+        private UserDto CreateUserObject(AppUser user)
         {
             return new UserDto
             {
