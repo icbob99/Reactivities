@@ -12,7 +12,7 @@ import LoadingComponents from './LoaadingComponent';
 import ModalContainer from '../common/models/ModalContainer';
 
 
-function App() {
+const App = observer(function App() {
   const location = useLocation();
   const { commonStore, userStore } = useStore();
 
@@ -43,6 +43,9 @@ function App() {
 
     </>
   )
-}
+});
 
-export default observer(App);
+export default App;
+
+
+

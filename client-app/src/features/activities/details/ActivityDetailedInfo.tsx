@@ -8,7 +8,7 @@ interface Props {
     activity: Activity
 }
 
-export default observer(function ActivityDetailedInfo({activity}: Props) {
+const ActivityDetailedInfo = observer(function ActivityDetailedInfo({activity}: Props) {
     return (
         <Segment.Group>
             <Segment attached='top'>
@@ -45,4 +45,6 @@ export default observer(function ActivityDetailedInfo({activity}: Props) {
             </Segment>
         </Segment.Group>
     )
-})
+});
+
+export default ActivityDetailedInfo;
